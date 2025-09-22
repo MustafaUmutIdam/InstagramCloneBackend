@@ -1,39 +1,31 @@
+using InstagramCloneBackend.Data;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services
+var connectionString = "Server=DESKTOP-0VF1TSP;Database=InstagramCloneDb;Trusted_Connection=True;TrustServerCertificate=True;";
+
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlServer(connectionString));
+
+builder.Services.AddScoped<PostRepository>();
 builder.Services.AddControllers();
 
-// Swagger/OpenAPI servislerini ekle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(options =>
+builder.Services.AddSwaggerGen(c =>
 {
-    options.SwaggerDoc("v1", new OpenApiInfo
-    {
-        Title = "Instagram Clone API",
-        Version = "v1",
-        Description = "Flutter uygulamasý için backend API"
-    });
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Instagram Clone API", Version = "v1" });
 });
 
 var app = builder.Build();
 
-// Swagger UI’yi sadece Development ortamýnda aç
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI(c =>
-    {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Instagram Clone API V1");
-        c.RoutePrefix = string.Empty; // localhost:5000 direkt swagger açar
-    });
+    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Instagram Clone API V1"));
 }
 
-
-
 app.UseAuthorization();
-
 app.MapControllers();
-
 app.Run();

@@ -1,24 +1,25 @@
 ﻿using InstagramCloneBackend.Models;
 
-namespace InstagramCloneBackend.Data;
-
-public class PostRepository
+namespace InstagramCloneBackend.Data
 {
-    public IEnumerable<Post> GetPosts()
+    public class PostRepository
     {
-        return Enumerable.Range(0, 5).Select(index => new Post
+        private readonly AppDbContext _context;
+
+        public PostRepository(AppDbContext context)
         {
-            ProfileName = $"User{index}",
-            PostDetail = $"Gönderi detay metni {index}",
-            Images = new List<string>
-            {
-                $"https://picsum.photos/400/300?random={index}",
-                $"https://picsum.photos/400/300?random={index+10}"
-            },
-            TimeAgo = $"{index + 1} saat önce",
-            LikeCount = 20 + index,
-            CommentCount = 5 + index,
-            RepostCount = 2 + index
-        });
+            _context = context;
+        }
+
+        public IEnumerable<Post> GetPosts()
+        {
+            return _context.Posts.ToList();
+        }
+
+        public void AddPost(Post post)
+        {
+            _context.Posts.Add(post);  // Id DB tarafından otomatik atanacak
+            _context.SaveChanges();
+        }
     }
 }
