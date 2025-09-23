@@ -9,6 +9,7 @@ namespace InstagramCloneBackend.Data
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
         public DbSet<Post> Posts { get; set; }  // Tablo adı Posts
+        public DbSet<Story> Stories { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

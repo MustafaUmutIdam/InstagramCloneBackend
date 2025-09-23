@@ -10,6 +10,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(connectionString));
 
 builder.Services.AddScoped<PostRepository>();
+builder.Services.AddScoped<StoryRepository>();
 builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
