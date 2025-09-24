@@ -5,6 +5,7 @@
         public int Id { get; set; }  // Identity column, DB otomatik atar
         public string Username { get; set; } = string.Empty;   // kullanıcı adı
         public string FullName { get; set; } = string.Empty;   // isim
+        public string ProfileImageUrl { get; set; } = string.Empty;
         public int PostCount { get; set; }
         public int FollowersCount { get; set; }
         public int FollowingCount { get; set; }
