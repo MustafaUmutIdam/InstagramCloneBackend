@@ -11,6 +11,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 builder.Services.AddScoped<PostRepository>();
 builder.Services.AddScoped<StoryRepository>();
+builder.Services.AddScoped<ProfileRepository>();
+
 builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();

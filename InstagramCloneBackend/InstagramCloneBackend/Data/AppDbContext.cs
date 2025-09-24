@@ -11,6 +11,8 @@ namespace InstagramCloneBackend.Data
         public DbSet<Post> Posts { get; set; }  // Tablo adı Posts
         public DbSet<Story> Stories { get; set; }
 
+        public DbSet<Profile> Profiles { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Post>(entity =>
