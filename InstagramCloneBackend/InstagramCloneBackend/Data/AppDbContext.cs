@@ -13,6 +13,8 @@ namespace InstagramCloneBackend.Data
 
         public DbSet<Profile> Profiles { get; set; }
 
+        public DbSet<MyPost> MyPosts { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Post>(entity =>
@@ -26,6 +28,26 @@ namespace InstagramCloneBackend.Data
                           v => JsonSerializer.Deserialize<List<string>>(v, (JsonSerializerOptions)null)
                       );
             });
+
+            modelBuilder.Entity<MyPost>(entity =>
+            {
+                entity.HasKey(p => p.Id);
+
+                entity.Property(p => p.Images)
+                    .HasConversion(
+                        v => JsonSerializer.Serialize(v, (JsonSerializerOptions)null),
+                        v => JsonSerializer.Deserialize<List<string>>(v, (JsonSerializerOptions)null)!
+                    );
+
+                // Foreign key bağlantısı
+                entity.HasOne(p => p.Profile)
+                      .WithMany()
+                      .HasForeignKey(p => p.ProfileId)
+                      .OnDelete(DeleteBehavior.Cascade);
+            });
+
         }
+
+
     }
 }
