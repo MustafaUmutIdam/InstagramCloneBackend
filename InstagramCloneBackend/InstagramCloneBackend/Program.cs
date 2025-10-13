@@ -12,6 +12,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddScoped<PostRepository>();
 builder.Services.AddScoped<StoryRepository>();
 builder.Services.AddScoped<ProfileRepository>();
+builder.Services.AddScoped<MyPostRepository>();
+
 
 builder.Services.AddControllers();
 
@@ -29,6 +31,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Instagram Clone API V1"));
 }
 
+app.UseStaticFiles();
 app.UseAuthorization();
 app.MapControllers();
 app.Run();
